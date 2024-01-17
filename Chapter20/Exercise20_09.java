@@ -1,3 +1,7 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -19,7 +23,7 @@ public class Exercise20_09 extends Application {
   @Override // Override the start method in the Application class
   public void start(Stage primaryStage) {
     MultipleBallPane ballPane = new MultipleBallPane();
-    ballPane.setStyle("-fx-border-color: yellow");
+    ballPane.setStyle("-fx-border-color: black");
 
     Button btAdd = new Button("+");
     Button btSubtract = new Button("-");
@@ -67,7 +71,7 @@ public class Exercise20_09 extends Application {
     public void add() {
       Color color = new Color(Math.random(), 
         Math.random(), Math.random(), 0.5);
-      getChildren().add(new Ball(30, 30, 20, color)); 
+      getChildren().add(new Ball(30, 30, (double)(Math.random() * 25), color)); 
     }
     
     public void subtract() {
@@ -117,13 +121,27 @@ public class Exercise20_09 extends Application {
     }
   }
 
-  class Ball extends Circle {
+  class Ball extends Circle implements Comparable<Object> {
     private double dx = 1, dy = 1;
 
     Ball(double x, double y, double radius, Color color) {
       super(x, y, radius);
       setFill(color); // Set ball color
     }
+    
+    @Override
+	public int compareTo(Object o) {
+    	if (this.getRadius() > ((Circle)o).getRadius()) {
+    		return 1;
+    	}
+    	else if (this.getRadius() < ((Circle)o).getRadius()) {
+    		return -1;
+    	}
+    	else {
+    		return 0;
+    	}
+    }
+    
   }
   
   /**
