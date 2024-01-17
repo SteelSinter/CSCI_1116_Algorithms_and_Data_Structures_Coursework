@@ -1,6 +1,3 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -22,7 +19,7 @@ public class Exercise20_09 extends Application {
   @Override // Override the start method in the Application class
   public void start(Stage primaryStage) {
     MultipleBallPane ballPane = new MultipleBallPane();
-    ballPane.setStyle("-fx-border-color: black");
+    ballPane.setStyle("-fx-border-color: yellow");
 
     Button btAdd = new Button("+");
     Button btSubtract = new Button("-");
@@ -58,7 +55,6 @@ public class Exercise20_09 extends Application {
 
   private class MultipleBallPane extends Pane {
     private Timeline animation;
-    private PriorityQueue<Ball> childOrder = new PriorityQueue<Ball>(0, Comparator.reverseOrder());
 
     public MultipleBallPane() {
       // Create an animation for moving the ball
@@ -69,16 +65,14 @@ public class Exercise20_09 extends Application {
     }
 
     public void add() {
-      Color color = new Color(Math.random(), Math.random(), Math.random(), 0.5);
-      Ball ball = new Ball(30, 30, (int)(Math.random() * 20), color);
-      childOrder.add(ball);
-      getChildren().add(ball); 
+      Color color = new Color(Math.random(), 
+        Math.random(), Math.random(), 0.5);
+      getChildren().add(new Ball(30, 30, 20, color)); 
     }
     
     public void subtract() {
       if (getChildren().size() > 0) {
-    	  Ball ball = childOrder.remove();
-        getChildren().remove(ball);
+        getChildren().remove(getChildren().size() - 1); 
       }
     }
 
@@ -123,29 +117,12 @@ public class Exercise20_09 extends Application {
     }
   }
 
-  class Ball<E> extends Circle implements Comparable<E> {
+  class Ball extends Circle {
     private double dx = 1, dy = 1;
-    private double radius;
 
     Ball(double x, double y, double radius, Color color) {
       super(x, y, radius);
-      this.radius = radius;
       setFill(color); // Set ball color
-    }
-    
-    public double getRads() {
-    	return radius;
-    }
-    
-    @Override
-    public int compareTo(Object o) {
-    	if (this.getRadius() < ((Circle)o).getRadius()) {
-    		return -1;
-    	}
-    	else if (this.getRadius() > ((Circle)o).getRadius()) {
-    		return 1;
-    	}
-    	else return 0;
     }
   }
   
