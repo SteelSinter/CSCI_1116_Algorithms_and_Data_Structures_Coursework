@@ -1,11 +1,14 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -72,11 +75,14 @@ public class Exercise20_09 extends Application {
       Color color = new Color(Math.random(), 
         Math.random(), Math.random(), 0.5);
       getChildren().add(new Ball(30, 30, (double)(Math.random() * 25), color)); 
+      List<Node> list = new LinkedList<Node>(getChildren().sorted());
+      getChildren().clear();
+      getChildren().addAll(list);
     }
     
     public void subtract() {
       if (getChildren().size() > 0) {
-        getChildren().remove(getChildren().size() - 1); 
+        getChildren().remove(getChildren().size() - 1);
       }
     }
 
@@ -121,7 +127,7 @@ public class Exercise20_09 extends Application {
     }
   }
 
-  class Ball extends Circle implements Comparable<Object> {
+  class Ball extends Circle implements Comparable<Node> {
     private double dx = 1, dy = 1;
 
     Ball(double x, double y, double radius, Color color) {
@@ -130,11 +136,11 @@ public class Exercise20_09 extends Application {
     }
     
     @Override
-	public int compareTo(Object o) {
-    	if (this.getRadius() > ((Circle)o).getRadius()) {
+	public int compareTo(Node n) {
+    	if (this.getRadius() > ((Circle)n).getRadius()) {
     		return 1;
     	}
-    	else if (this.getRadius() < ((Circle)o).getRadius()) {
+    	else if (this.getRadius() < ((Circle)n).getRadius()) {
     		return -1;
     	}
     	else {
