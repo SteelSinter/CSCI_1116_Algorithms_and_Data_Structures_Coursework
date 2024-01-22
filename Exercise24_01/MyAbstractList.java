@@ -54,9 +54,10 @@ public abstract class MyAbstractList<E> implements MyList<E> {
 	public boolean removeAll(MyList<E> otherList) {
 		boolean c = false;
 		for (int i = 0; i < otherList.size(); i++) {
-			if (get(i) != null && contains(get(i)))
-				remove(get(i));
-			c = true;
+			if (otherList.get(i) != null && contains(otherList.get(i))) {
+				remove(indexOf(otherList.get(i)));
+				c = true;
+			}
 		}
 		return c;
 	}
@@ -65,10 +66,12 @@ public abstract class MyAbstractList<E> implements MyList<E> {
 	* Returns true if this list changed as a result of the call */ 
 	public boolean retainAll(MyList<E> otherList) {
 		boolean c = false;
-		for (int i = 0; i < otherList.size(); i++) {
-			if (get(i) != null && !(contains(get(i))))
+		for (int i = 0; i < size(); i++) {
+			if (!(otherList.contains(get(i)))) {
 				remove(get(i));
-			c = true;
+				i--;
+				c = true;
+			}
 		}
 		return c;
 	}
