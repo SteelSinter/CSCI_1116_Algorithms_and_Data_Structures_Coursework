@@ -1,8 +1,11 @@
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,8 +18,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Exercise21_11 extends Application {
-  private Map<String, Integer>[] mapForBoy = new HashMap[10];
-  private Map<String, Integer>[] mapForGirl = new HashMap[10];
+  private HashMap<String, Integer>[] mapForBoy = new HashMap[10];
+  private HashMap<String, Integer>[] mapForGirl = new HashMap[10];
   
   private Button btFindRanking = new Button("Find Ranking");
   private ComboBox<Integer> cboYear = new ComboBox<>();
@@ -28,25 +31,41 @@ public class Exercise21_11 extends Application {
 		  "http://liveexample.pearsoncmg.com/data/babynamesranking";
   
   @Override // Override the start method in the Application class
-  public void start(Stage primaryStage) {
-	URL url;
+  public void start(Stage primaryStage) throws MalformedURLException {
+	URL url = null;
 	File file = null;
 	
 	for (int year = 2001; year <= 2010; year++) {
-	  try {
-		url = new URL(urlString + year + ".txt");
-	    file = new File(url.getFile());
-	  }
-	  catch (Exception e) {
-	    e.printStackTrace();
-	  }
-	  try (DataInputStream input01 = 
-			  new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-	    //
-	  }
-      catch (Exception e) {
-	    e.printStackTrace();
-	  }
+	  Map<String, Integer> boyMap = new TreeMap<String, Integer>();
+	  Map<String, Integer> girlMap = new TreeMap<String, Integer>();
+	  
+	  url = new URL(urlString + year + ".txt");
+	  System.out.println(url.toString());
+	  
+	  try (Scanner input = new Scanner(new DataInputStream(new BufferedInputStream(url.openStream())))) {
+		  for (int rank = 1; rank <= 1000; rank++) {
+			try {
+			  input.next();
+			  boyMap.put(String.valueOf(input.next()), rank);
+			  input.next();
+			  girlMap.put(String.valueOf(input.next()), rank);
+			  input.nextLine();
+			  
+			  System.out.println(boyMap.toString());
+			  System.out.println(girlMap.toString());
+			  
+			}
+			catch (Exception e) {
+			  e.printStackTrace();
+			}
+		  }
+		  mapForBoy.put(year - 2000, boyMap);//////////////////////////////////
+		  
+		}
+	    catch (Exception e) {
+		  e.printStackTrace();
+		}
+	  
 	}
 	
     GridPane gridPane = new GridPane();
@@ -81,6 +100,8 @@ public class Exercise21_11 extends Application {
     cboGender.setValue("Male");
     
   }
+  
+  //DataInputStream input = new DataInputStream(new BufferedInputStream(new FileInputStream(file)))
 
   /**
    * The main method is only needed for the IDE with limited
