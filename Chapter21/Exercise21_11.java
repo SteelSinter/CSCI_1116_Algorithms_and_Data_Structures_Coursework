@@ -42,7 +42,7 @@ public class Exercise21_11 extends Application {
 	  }
 	  try (DataInputStream input01 = 
 			  new DataInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-	    
+	    //
 	  }
       catch (Exception e) {
 	    e.printStackTrace();
