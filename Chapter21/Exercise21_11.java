@@ -33,7 +33,6 @@ public class Exercise21_11 extends Application {
   @Override // Override the start method in the Application class
   public void start(Stage primaryStage) throws MalformedURLException {
 	URL url = null;
-	File file = null;
 	HashMap<String, Integer> boyMap;
 	HashMap<String, Integer> girlMap;
 	
@@ -95,12 +94,30 @@ public class Exercise21_11 extends Application {
     }
     cboYear.setValue(2001);
         
-    cboGender.getItems().addAll("Male", "Female");
-    cboGender.setValue("Male");
+    cboGender.getItems().addAll("Boy", "Girl");
+    cboGender.setValue("Boy");
+    
+    btFindRanking.setOnAction(e -> {
+    	HashMap<String, Integer> map;
+    	String name = tfName.getText();
+    	
+    	if (cboGender.getValue() == "Boy") {
+    		map = mapForBoy[cboYear.getValue() - 2000 - 1];
+    	}
+    	else {
+    		map = mapForGirl[cboYear.getValue() - 2000 - 1];
+    	}
+    	tfName.setText(name = name.replace(name.charAt(0), (String.valueOf(name.charAt(0)).toUpperCase()).charAt(0)));
+    	
+    	try {
+    		lblResult.setText(name + " was ranked #" + map.get(name) + " in the year " + cboYear.getValue());
+    	}
+    	catch (Exception e1) {
+    		e1.printStackTrace();
+    	}
+    });
     
   }
-  
-  //DataInputStream input = new DataInputStream(new BufferedInputStream(new FileInputStream(file)))
 
   /**
    * The main method is only needed for the IDE with limited
