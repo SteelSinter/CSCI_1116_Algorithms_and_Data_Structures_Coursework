@@ -34,10 +34,12 @@ public class Exercise21_11 extends Application {
   public void start(Stage primaryStage) throws MalformedURLException {
 	URL url = null;
 	File file = null;
+	HashMap<String, Integer> boyMap;
+	HashMap<String, Integer> girlMap;
 	
 	for (int year = 2001; year <= 2010; year++) {
-	  Map<String, Integer> boyMap = new TreeMap<String, Integer>();
-	  Map<String, Integer> girlMap = new TreeMap<String, Integer>();
+	  boyMap = new HashMap<String, Integer>();
+	  girlMap = new HashMap<String, Integer>();
 	  
 	  url = new URL(urlString + year + ".txt");
 	  System.out.println(url.toString());
@@ -51,16 +53,13 @@ public class Exercise21_11 extends Application {
 			  girlMap.put(String.valueOf(input.next()), rank);
 			  input.nextLine();
 			  
-			  System.out.println(boyMap.toString());
-			  System.out.println(girlMap.toString());
-			  
 			}
 			catch (Exception e) {
 			  e.printStackTrace();
 			}
 		  }
-		  mapForBoy.put(year - 2000, boyMap);//////////////////////////////////
-		  
+		  mapForBoy[year - 2000 - 1] = (boyMap);
+		  mapForGirl[year - 2000 - 1] = (girlMap);
 		}
 	    catch (Exception e) {
 		  e.printStackTrace();
