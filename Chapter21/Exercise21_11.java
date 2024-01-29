@@ -109,12 +109,11 @@ public class Exercise21_11 extends Application {
     	}
     	tfName.setText(name = name.replace(name.charAt(0), (String.valueOf(name.charAt(0)).toUpperCase()).charAt(0)));
     	
-    	try {
+    	if (map.get(name) == null)
+    		lblResult.setText(name + " was not found in the year " + cboYear.getValue() + ".");
+    	else
     		lblResult.setText(name + " was ranked #" + map.get(name) + " in the year " + cboYear.getValue());
-    	}
-    	catch (Exception e1) {
-    		e1.printStackTrace();
-    	}
+    	
     });
     
   }
