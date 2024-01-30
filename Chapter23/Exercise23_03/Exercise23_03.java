@@ -4,16 +4,6 @@ Date:
 
 Description: 
 */
-
-/**
- * (Generic quick sort ) Write the following two generic methods
- * using quick sort. The first method sorts the elements using the
- * Comparable interface and the second uses the Comparator interface.
- * 
- * public static <E extends Comparable<E>> void quickSort(E[] list)
- * 
- * public static <E> void quickSort(E[] list, Comparator<? super E> comparator)
- */
 import java.util.Comparator;
 
 public class Exercise23_03 {
@@ -33,4 +23,17 @@ public class Exercise23_03 {
       System.out.println(list1[i] + " ");
     }
   }
+  
+  public static <E extends Comparable <E>> void quickSort(E[] list) {
+	  E pivot = list[0];
+	  for (int i = 0; i < list.length; i++) {
+		  if (list[i].compareTo(pivot) == 1)
+			  pivot = list[i];
+	  }
+  }
+  
+  public static <E> void quickSort (E[] list, Comparator<? super E> comparator) {
+	  
+  }
+  
 }
