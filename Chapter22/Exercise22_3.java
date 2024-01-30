@@ -17,8 +17,8 @@ public class Exercise22_3 {
 	}
 	
 	public static boolean substringOf(String s1, String s2) {
-		String result = s1.replaceFirst(s2, s2);
-		if (result.equals(s1)) {
+		String str = s1.replaceFirst(s2, "");
+		if (str != s1) {
 			return true;
 		}
 		return false;
