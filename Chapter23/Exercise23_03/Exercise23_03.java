@@ -26,9 +26,10 @@ public class Exercise23_03 {
   
   public static <E extends Comparable <E>> void quickSort(E[] list) {
 	  E pivot = list[0];
+	  E max = list[0];
 	  for (int i = 0; i < list.length; i++) {
-		  if (list[i].compareTo(pivot) == 1)
-			  pivot = list[i];
+		  if (list[i].compareTo(max) == 1)
+			  max = list[i];
 	  }
   }
   
