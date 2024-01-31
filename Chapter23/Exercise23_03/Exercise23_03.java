@@ -5,7 +5,6 @@ Date:
 Description: 
 */
 import java.util.Comparator;
-
 public class Exercise23_03 {
   public static void main(String[] args) {
     Integer[] list = {2, 3, 2, 5, 6, 1, -2, 3, 14, 12};
