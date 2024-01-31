@@ -25,12 +25,45 @@ public class Exercise23_03 {
   }
   
   public static <E extends Comparable <E>> void quickSort(E[] list) {
-	  E pivot = list[0];
-	  E max = list[0];
-	  for (int i = 0; i < list.length; i++) {
-		  if (list[i].compareTo(max) == 1)
-			  max = list[i];
+	  quickSort(list, 0, list.length - 1);
+  }
+  
+  public static <E extends Comparable <E>> void quickSort(E[] list, int high, int low) {
+	  if (low > high) {
+		  int pivotIndex = separate(list, high, low);
+		  quickSort(list, high, pivotIndex - 1);
+		  quickSort(list, pivotIndex + 1, low);
 	  }
+  }
+  
+  public static <E extends Comparable <E>> int separate(E[] list, int high, int low) {
+	  E pivot = list[low];
+	  low = low + 1;
+	  int first = high;
+	  
+	  while (high > low) {
+		  while (low <= high && list[low].compareTo(pivot) == -1 || list[low].compareTo(pivot) == 0)
+			  low++;
+		  while (low <= high && list[high].compareTo(pivot) == 1) 
+			  high--;
+		  
+		  if (high > low) {
+			  E temp = list[high];
+			  list[high] = list[low];
+			  list[low] = temp;
+		  }
+	  }
+	  
+	  while (high > first && list[high].compareTo(pivot) == 1 || list[high].compareTo(pivot) == 0)
+		  high--;
+	  
+	  if (pivot.compareTo(list[high]) == 1) {
+		  list[first] = list[high];
+		  list[high] = pivot;
+		  return high;
+	  }
+	  else
+		  return first;
   }
   
   public static <E> void quickSort (E[] list, Comparator<? super E> comparator) {
