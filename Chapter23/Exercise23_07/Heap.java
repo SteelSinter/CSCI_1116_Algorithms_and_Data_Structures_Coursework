@@ -3,15 +3,6 @@ Author: Y. Daniel Liang
 
 Listing 23.9 Heap Class
  */
-
-/**
- * (Min-heap) The heap presented in the text is also known as a max-heap , in
- * which each node is greater than or equal to any of its children. A min-heap
- * is a heap in which each node is less than or equal to any of its children.
- * Min-heaps are often used to implement priority queues. Revise the Heap class in
- * Listing 23.9 to implement a min-heap.
- * 
- */
 public class Heap<E extends Comparable<E>> {
   private java.util.ArrayList<E> list = new java.util.ArrayList<>();
 
@@ -32,9 +23,9 @@ public class Heap<E extends Comparable<E>> {
 
     while (currentIndex > 0) {
       int parentIndex = (currentIndex - 1) / 2;
-      // Swap if the current object is greater than its parent
+      // Swap if the current object is -greater- less than or equal to its parent
       if (list.get(currentIndex).compareTo(
-          list.get(parentIndex)) > 0) {
+          list.get(parentIndex)) != 1) {
         E temp = list.get(currentIndex);
         list.set(currentIndex, list.get(parentIndex));
         list.set(parentIndex, temp);
